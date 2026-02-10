@@ -7,9 +7,13 @@ The company sells a diverse range of product categories through its online platf
 - **Order Volume:** Processes tens of thousands of orders annually.
 
 
-The SQL queries for data cleaning can be found here.  
+Insight and recommendations are provided on the following areas:  
+Logistics Performance Analysis:
+ABC Analysis:
 
-The SQL queries for exploratory data analysis can be found here.
+The SQL queries for data cleaning are available here.  
+
+The SQL queries for exploratory data analysis are available here.
 
 # Data Structure Overview
 
