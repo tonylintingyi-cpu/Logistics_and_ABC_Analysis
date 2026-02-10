@@ -7,9 +7,9 @@ The company sells a diverse range of product categories through its online platf
 - **Order Volume:** Processes tens of thousands of orders annually.
 
 
-The SQL queries utilized to clean, organize, and prepare data for the dashboard can be found here.  
+The SQL queries for data cleaning can be found here.  
 
-The SQL queries utilized for exploratory data analysis can be found here.
+The SQL queries for exploratory data analysis can be found here.
 
 # Data Structure Overview
 
