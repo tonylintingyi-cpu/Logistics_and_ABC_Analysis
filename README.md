@@ -11,6 +11,8 @@ Insight and recommendations are provided on the following areas:
 Logistics Performance Analysis:
 ABC Analysis:
 
+An interactive Tableau dashboard can be found here.   
+
 The SQL queries for data cleaning are available here.  
 
 The SQL queries for exploratory data analysis are available here.
