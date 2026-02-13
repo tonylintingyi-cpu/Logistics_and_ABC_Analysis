@@ -32,7 +32,7 @@ The company's delivery performance reveals a systematic fulfilment issue: **over
 - **Second Class shipping** shows greater variability, with delays ranging from 1 to 4 days, indicating less predictable bottlenecks in the fulfilment pipeline.
 - Applying the **Pareto principle**, 8 product categories drive **85% of total profit**, while the remaining categories contribute minimally to both profit and sales volume — presenting an opportunity to prioritise logistics resources toward high-impact categories.
 
-[Executive Summary Dashboard](https://public.tableau.com/app/profile/tony.lin4499/viz/LogisticsABCAnalysis/LogisticsABCAnalysis)
+[Tableau Dashboard](https://public.tableau.com/app/profile/tony.lin4499/viz/LogisticsABCAnalysis/LogisticsABCAnalysis)
 
 
 ## Insights Deep Dive
@@ -46,6 +46,10 @@ Performance varies significantly by shipping mode. Standard Class performs best 
 - **First Class has a 0% on-time rate.** Every order is promised 1-day delivery but takes 2 days. This isn't a random delay — it's a consistent 1-day gap, which means the promised delivery window is simply set too tight.
 - **Second Class has a 20.01% on-time rate**, with delays ranging from 1 to 4 days. Unlike First Class, the delay pattern here is unpredictable. This issue is not region-specific — all markets show roughly the same ~20% on-time rate, and even the best-performing countries stay below 30%.
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/9bd5d979-ac16-4238-8e25-0e3645808953" width="45%">
+  <img src="https://github.com/user-attachments/assets/b0aae7ab-2837-4f71-b661-50d77805141f" width="45%">
+</div>
 <img width="2030" height="1622" alt="Logistics   ABC Analysis拷貝" src="https://github.com/user-attachments/assets/9bd5d979-ac16-4238-8e25-0e3645808953" />
 <img width="2030" height="1625" alt="Logistics   ABC Analysis (1)" src="https://github.com/user-attachments/assets/b0aae7ab-2837-4f71-b661-50d77805141f" />
 
