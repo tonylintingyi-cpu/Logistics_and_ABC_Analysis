@@ -202,133 +202,117 @@ WHERE
 -- 3.2: Character Encoding Fix
 	-- encoding error � within the country name
 		-- 43 countries
-		-- 204 states
-SELECT DISTINCT order_country
-FROM cleaned_order
-WHERE order_country LIKE '%�%';
+
+CREATE TEMP TABLE country_mapping (raw_name VARCHAR, correct_name VARCHAR);
+
+INSERT INTO country_mapping VALUES
+    -- 亂碼修正（西班牙文含特殊字元）
+    ('Hait�', 'Haiti'),
+    ('Ir�n', 'Iran'),
+    ('Per�', 'Peru'),
+    ('Banglad�s', 'Bangladesh'),
+    ('Taiw�n', 'Taiwan'),
+    ('Rep�blica Centroafricana','Central African Republic'),
+    ('Sud�n', 'Sudan'),
+    ('Rep�blica Democr�tica del Congo', 'Democratic Republic of the Congo'),
+    ('Uzbekist�n', 'Uzbekistan'),
+    ('Turkmenist�n', 'Turkmenistan'),
+    ('Rep�blica Dominicana', 'Dominican Republic'),
+    ('Kazajist�n', 'Kazakhstan'),
+    ('But�n', 'Bhutan'),
+    ('Etiop�a', 'Ethiopia'),
+    ('Sud�n del Sur', 'South Sudan'),
+    ('Pa�ses Bajos', 'Netherlands'),
+    ('M�xico', 'Mexico'),
+    ('T�nez', 'Tunisia'),
+    ('Emiratos �rabes Unidos', 'United Arab Emirates'),
+    ('Rep�blica de Gambia', 'Gambia'),
+    ('Bar�in', 'Bahrain'),
+    ('Hungr�a', 'Hungary'),
+    ('B�lgica', 'Belgium'),
+    ('Turqu�a', 'Turkey'),
+    ('Camer�n', 'Cameroon'),
+    ('N�ger', 'Niger'),
+    ('Kirguist�n', 'Kyrgyzstan'),
+    ('Ben�n', 'Benin'),
+    ('S�hara Occidental', 'Western Sahara'),
+    ('Om�n', 'Oman'),
+    ('Panam�', 'Panama'),
+    ('Arabia Saud�', 'Saudi Arabia'),
+    ('Rep�blica Checa', 'Czech Republic'),
+    ('Tayikist�n', 'Tajikistan'),
+    ('Espa�a', 'Spain'),
+    ('Afganist�n', 'Afghanistan'),
+    ('L�bano', 'Lebanon'),
+    ('Rep�blica del Congo', 'Republic of the Congo'),
+    ('Pakist�n', 'Pakistan'),
+    ('Jap�n', 'Japan'),
+    ('Azerbaiy�n', 'Azerbaijan'),
+    ('Pap�a Nueva Guinea', 'Papua New Guinea'),
+    ('Gab�n', 'Gabon'),
+    
+	-- 55 countries' name are spanish: transfer them to english
+    ('Alemania', 'Germany'),
+    ('Argelia', 'Algeria'),
+    ('Belice', 'Belize'),
+    ('Bielorrusia', 'Belarus'),
+    ('Bosnia y Herzegovina', 'Bosnia and Herzegovina'),
+    ('Botsuana', 'Botswana'),
+    ('Brasil', 'Brazil'),
+    ('Camboya', 'Cambodia'),
+    ('Chipre', 'Cyprus'),
+    ('Corea del Sur', 'South Korea'),
+    ('Costa de Marfil', 'Ivory Coast'),
+    ('Croacia', 'Croatia'),
+    ('Dinamarca', 'Denmark'),
+    ('Egipto', 'Egypt'),
+    ('Eslovaquia', 'Slovakia'),
+    ('Eslovenia', 'Slovenia'),
+    ('Estados Unidos', 'United States'),
+    ('Filipinas', 'Philippines'),
+    ('Finlandia', 'Finland'),
+    ('Francia', 'France'),
+    ('Grecia', 'Greece'),
+    ('Guadalupe', 'Guadeloupe'),
+    ('Guayana Francesa', 'French Guiana'),
+    ('Guinea Ecuatorial', 'Equatorial Guinea'),
+    ('Irlanda', 'Ireland'),
+    ('Italia', 'Italy'),
+    ('Jordania', 'Jordan'),
+    ('Kenia', 'Kenya'),
+    ('Malasia', 'Malaysia'),
+    ('Marruecos', 'Morocco'),
+    ('Martinica', 'Martinique'),
+    ('Mexico', 'Mexico'),
+    ('Moldavia', 'Moldova'),
+    ('Mozambique', 'Mozambique'),
+    ('Myanmar (Birmania)', 'Myanmar (Burma)'),
+    ('Noruega', 'Norway'),
+    ('Nueva Zelanda', 'New Zealand'),
+    ('Panama', 'Panama'),
+    ('Peru', 'Peru'),
+    ('Polonia', 'Poland'),
+    ('Reino Unido', 'United Kingdom'),
+    ('Ruanda', 'Rwanda'),
+    ('Rumania', 'Romania'),
+    ('Rusia', 'Russia'),
+    ('Senegal', 'Senegal'),
+    ('Siria', 'Syria'),
+    ('SudAfrica', 'South Africa'),
+    ('Suazilandia', 'Eswatini'),
+    ('Suecia', 'Sweden'),
+    ('Suiza', 'Switzerland'),
+    ('Surinam', 'Suriname'),
+    ('Tailandia', 'Thailand'),
+    ('Tunisia', 'Tunisia'),
+    ('Ucrania', 'Ukraine'),
+    ('Yibuti', 'Djibouti');
 
 UPDATE cleaned_order
-SET order_country = CASE
-    WHEN order_country = 'Hait�' THEN 'Haiti'
-    WHEN order_country = 'Ir�n' THEN 'Iran'
-    WHEN order_country = 'Per�' THEN 'Peru'
-    WHEN order_country = 'Banglad�s' THEN 'Bangladesh'
-    WHEN order_country = 'Taiw�n' THEN 'Taiwan'
-    WHEN order_country = 'Rep�blica Centroafricana' THEN 'Central African Republic'
-    WHEN order_country = 'Sud�n' THEN 'Sudan'
-    WHEN order_country = 'Rep�blica Democr�tica del Congo' 	THEN 'Democratic Republic of the Congo'
-    WHEN order_country = 'Uzbekist�n' THEN 'Uzbekistan'
-    WHEN order_country = 'Turkmenist�n' THEN 'Turkmenistan'
-    WHEN order_country = 'Rep�blica Dominicana' THEN 'Dominican Republic'
-    WHEN order_country = 'Kazajist�n' THEN 'Kazakhstan'
-    WHEN order_country = 'But�n' THEN 'Bhutan'
-    WHEN order_country = 'Etiop�a' 	THEN 'Ethiopia'
-    WHEN order_country = 'Sud�n del Sur' THEN 'South Sudan'
-    WHEN order_country = 'Pa�ses Bajos' THEN 'Netherlands'
-    WHEN order_country = 'M�xico' 	THEN 'Mexico'
-    WHEN order_country = 'T�nez' THEN 'Tunisia'
-    WHEN order_country = 'Emiratos �rabes Unidos' THEN 'United Arab Emirates'
-    WHEN order_country = 'Rep�blica de Gambia' 	THEN 'Gambia'
-    WHEN order_country = 'Bar�in' THEN 'Bahrain'
-    WHEN order_country = 'Hungr�a' 	THEN 'Hungary'
-    WHEN order_country = 'B�lgica' THEN 'Belgium'
-    WHEN order_country = 'Turqu�a' THEN 'Turkey'
-    WHEN order_country = 'Camer�n' THEN 'Cameroon'
-    WHEN order_country = 'N�ger' THEN 'Niger'
-    WHEN order_country = 'Kirguist�n' THEN 'Kyrgyzstan'
-    WHEN order_country = 'Ben�n' THEN 'Benin'
-    WHEN order_country = 'S�hara Occidental' THEN 'Western Sahara'
-    WHEN order_country = 'Om�n' THEN 'Oman'
-    WHEN order_country = 'Panam�' THEN 'Panama'
-    WHEN order_country = 'Arabia Saud�' THEN 'Saudi Arabia'
-    WHEN order_country = 'Rep�blica Checa' THEN 'Czech Republic'
-    WHEN order_country = 'Tayikist�n' THEN 'Tajikistan'
-    WHEN order_country = 'Espa�a' THEN 'Spain'
-    WHEN order_country = 'Afganist�n' THEN 'Afghanistan'
-    WHEN order_country = 'L�bano' THEN 'Lebanon'
-    WHEN order_country = 'Rep�blica del Congo' THEN 'Republic of the Congo'
-    WHEN order_country = 'Pakist�n' THEN 'Pakistan'
-    WHEN order_country = 'Jap�n' THEN 'Japan'
-    WHEN order_country = 'Azerbaiy�n' THEN 'Azerbaijan'
-    WHEN order_country = 'Pap�a Nueva Guinea' THEN 'Papua New Guinea'
-    WHEN order_country = 'Gab�n' THEN 'Gabon'
-    ELSE order_country
-END
-WHERE order_country LIKE '%�%';
+SET order_country = m.correct_name
+FROM country_mapping m
+WHERE cleaned_order.order_country = m.raw_name;
 
--- ~50 countries' name are spanish: transfer them to english
-UPDATE cleaned_order
-SET order_country = CASE
-    WHEN order_country = 'Alemania' THEN 'Germany'
-    WHEN order_country = 'Argelia' THEN 'Algeria'
-    WHEN order_country = 'Belice' THEN 'Belize'
-    WHEN order_country = 'Bielorrusia' THEN 'Belarus'
-    WHEN order_country = 'Bosnia y Herzegovina' THEN 'Bosnia and Herzegovina'
-    WHEN order_country = 'Botsuana' THEN 'Botswana'
-    WHEN order_country = 'Brasil' THEN 'Brazil'
-    WHEN order_country = 'Camboya' THEN 'Cambodia'
-    WHEN order_country = 'Chipre' THEN 'Cyprus'
-    WHEN order_country = 'Corea del Sur' THEN 'South Korea'
-    WHEN order_country = 'Costa de Marfil' THEN 'Ivory Coast'
-    WHEN order_country = 'Croacia' THEN 'Croatia'
-    WHEN order_country = 'Dinamarca' THEN 'Denmark'
-    WHEN order_country = 'Egipto' THEN 'Egypt'
-    WHEN order_country = 'Eslovaquia' THEN 'Slovakia'
-    WHEN order_country = 'Eslovenia' THEN 'Slovenia'
-    WHEN order_country = 'Estados Unidos' THEN 'United States'
-    WHEN order_country = 'Filipinas' THEN 'Philippines'
-    WHEN order_country = 'Finlandia' THEN 'Finland'
-    WHEN order_country = 'Francia' THEN 'France'
-    WHEN order_country = 'Grecia' THEN 'Greece'
-    WHEN order_country = 'Guadalupe' THEN 'Guadeloupe'
-    WHEN order_country = 'Guayana Francesa' THEN 'French Guiana'
-    WHEN order_country = 'Guinea Ecuatorial' THEN 'Equatorial Guinea'
-    WHEN order_country = 'Irlanda' THEN 'Ireland'
-    WHEN order_country = 'Italia' THEN 'Italy'
-    WHEN order_country = 'Jordania' THEN 'Jordan'
-    WHEN order_country = 'Kenia' THEN 'Kenya'
-    WHEN order_country = 'Malasia' THEN 'Malaysia'
-    WHEN order_country = 'Marruecos' THEN 'Morocco'
-    WHEN order_country = 'Martinica' THEN 'Martinique'
-    WHEN order_country = 'Mexico' THEN 'Mexico'
-    WHEN order_country = 'Moldavia' THEN 'Moldova'
-    WHEN order_country = 'Mozambique' THEN 'Mozambique'
-    WHEN order_country = 'Myanmar (Birmania)' THEN 'Myanmar (Burma)'
-    WHEN order_country = 'Noruega' THEN 'Norway'
-    WHEN order_country = 'Nueva Zelanda' THEN 'New Zealand'
-    WHEN order_country = 'Panama' THEN 'Panama'
-    WHEN order_country = 'Peru' THEN 'Peru'
-    WHEN order_country = 'Polonia' THEN 'Poland'
-    WHEN order_country = 'Reino Unido' THEN 'United Kingdom'
-    WHEN order_country = 'Ruanda' THEN 'Rwanda'
-    WHEN order_country = 'Rumania' THEN 'Romania'
-    WHEN order_country = 'Rusia' THEN 'Russia'
-    WHEN order_country = 'Senegal' THEN 'Senegal'
-    WHEN order_country = 'Siria' THEN 'Syria'
-    WHEN order_country = 'SudAfrica' THEN 'South Africa'
-    WHEN order_country = 'Suazilandia' THEN 'Eswatini'
-    WHEN order_country = 'Suecia' THEN 'Sweden'
-    WHEN order_country = 'Suiza' THEN 'Switzerland'
-    WHEN order_country = 'Surinam' THEN 'Suriname'
-    WHEN order_country = 'Tailandia' THEN 'Thailand'
-    WHEN order_country = 'Tunisia' THEN 'Tunisia'
-    WHEN order_country = 'Ucrania' THEN 'Ukraine'
-    WHEN order_country = 'Yibuti' THEN 'Djibouti'
-    ELSE order_country
-END
-WHERE order_country IN (
-    'Alemania', 'Argelia', 'Belice', 'Bielorrusia', 'Bosnia y Herzegovina',
-    'Botsuana', 'Brasil', 'Camboya', 'Chipre', 'Corea del Sur',
-    'Costa de Marfil', 'Croacia', 'Dinamarca', 'Egipto', 'Eslovaquia',
-    'Eslovenia', 'Estados Unidos', 'Filipinas', 'Finlandia', 'Francia',
-    'Grecia', 'Guadalupe', 'Guayana Francesa', 'Guinea Ecuatorial', 'Irlanda',
-    'Italia', 'Jordania', 'Kenia', 'Malasia', 'Marruecos',
-    'Martinica', 'Mexico', 'Moldavia', 'Mozambique', 'Myanmar (Birmania)',
-    'Noruega', 'Nueva Zelanda', 'Panama', 'Peru', 'Polonia',
-    'Reino Unido', 'Ruanda', 'Rumania', 'Rusia', 'Senegal',
-    'Siria', 'SudAfrica', 'Suazilandia', 'Suecia', 'Suiza',
-    'Surinam', 'Tailandia', 'Tunisia', 'Ucrania', 'Yibuti'
-);
 
 
 -- 3.3: Categorical Consistency Check
