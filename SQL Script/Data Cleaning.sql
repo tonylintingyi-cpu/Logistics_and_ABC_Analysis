@@ -206,7 +206,6 @@ WHERE
 CREATE TEMP TABLE country_mapping (raw_name VARCHAR, correct_name VARCHAR);
 
 INSERT INTO country_mapping VALUES
-    -- 亂碼修正（西班牙文含特殊字元）
     ('Hait�', 'Haiti'),
     ('Ir�n', 'Iran'),
     ('Per�', 'Peru'),
