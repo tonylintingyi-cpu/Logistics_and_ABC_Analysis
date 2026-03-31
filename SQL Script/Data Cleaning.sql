@@ -309,7 +309,7 @@ INSERT INTO country_mapping VALUES
 
 UPDATE cleaned_order
 SET order_country = m.correct_name
-FROM country_mapping m
+FROM country_mapping AS m
 WHERE cleaned_order.order_country = m.raw_name;
 
 
